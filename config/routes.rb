@@ -1,16 +1,32 @@
 Rails.application.routes.draw do
 
+  root 'demo#index'
+
+  get 'demo/index'
+
+  get 'demo/hello'
+
+  get 'demo/about'
+
+  get 'demo/contact'
+
+  
+
   # get 'demo/hello'
 
   # routes checked from top of this file to end
 
-  # root "demo/index" # root of app when no url specified
+  # root "demo#index" # root of app when no url specified
   # same as match "/", (home dir, no url) :to => "demo#index", :via => :get
+  # if two or more routes are specified for same route, rails router will
+  # pick shortest one.
 
   # get 'demo/index'
   # match "demo/index", :to => "demo#index", :via => :get
   # 'get' one says to match url directly to the controller with the name
   # before the slash and the action with the name after the slash
+  # bi-directional, also is defined in the reverse, so, controller action pair
+  # maps to url string.
 
 
   # GET reuqest from browser, i.e. url /students/edit/52 is typed in browser
