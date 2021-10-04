@@ -2,27 +2,42 @@ require 'test_helper'
 
 class SubjectsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get subjects_index_url
+    get subjects_path
     assert_response :success
   end
 
   test "should get show" do
-    get subjects_show_url
+    get subject_path(:id)
     assert_response :success
   end
 
   test "should get new" do
-    get subjects_new_url
+    get new_subject_path
+    assert_response :success
+  end
+
+  test "should get create" do
+    post visitors_path, params: {}
     assert_response :success
   end
 
   test "should get edit" do
-    get subjects_edit_url
+    get edit_subject_path(:id)
+    assert_response :success
+  end
+
+  test "should get update" do
+    get delete_subject_path(:id)
     assert_response :success
   end
 
   test "should get delete" do
-    get subjects_delete_url
+    get delete_subject_path(:id)
+    assert_response :success
+  end
+
+  test "should get destroy" do
+    get delete_subject_path(:id)
     assert_response :success
   end
 
