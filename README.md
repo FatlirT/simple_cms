@@ -1,24 +1,9 @@
-# README
+Simple Content Management System (idea from Ruby on Rails 6 Essential Training by Kevin Skoglund)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+TODO:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- write tests
+- model verification
+- input verification
+- user authentication
+- add GUI
