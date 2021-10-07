@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  subject_id: 1
-  name: MyString
-  permalink: MyString
+  subject: corona
+  name: page1
+  permalink: page1link
   position: 1
   visible: false
-  content: MyText
+  content: This is the first page
 
 two:
-  subject_id: 1
-  name: MyString
-  permalink: MyString
-  position: 1
-  visible: false
+  subject: weather
+  name: page2
+  permalink: page2link
+  position: 2
+  visible: true
   content: MyText

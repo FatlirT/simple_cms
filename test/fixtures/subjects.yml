@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+corona:
+  name: Math
   position: 1
+  visible: true
+
+weather:
+  name: Weather
+  position: 2
   visible: false
 
-two:
-  name: MyString
-  position: 1
-  visible: false
