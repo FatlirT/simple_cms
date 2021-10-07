@@ -5,6 +5,7 @@ class PageTest < ActiveSupport::TestCase
   setup do
     @page = pages(:two)
     @subject = subjects(:corona)
+    @subject2 = subjects(:weather)
 
   end
 
@@ -13,47 +14,77 @@ class PageTest < ActiveSupport::TestCase
     assert page.valid?
   end
 
-  # test "report with valid data, uniqueness" do
-  #   report = Report.create(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   report2 = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   assert !report2.valid?
-  # end
+  test "page with valid data, but with true visible value" do
+    page = Page.new(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: false, content: "dsdsds")
+    assert page.valid?
+  end
 
-  # test "report with valid data, but with true handled value" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: true)
+  test "page with invalid data, no visible value" do
+    page = Page.new(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: nil, content: "dsdsds")
+    assert page.valid? # defaults to true
+  end
 
-  #   assert report.valid?
-  # end
+  test "page with invalid data, no permalink" do
+    page = Page.new(subject: @subject, name: "name", permalink: nil, position: 4, visible: true, content: "dsdsds")
+    assert !page.valid?
+  end
 
-  # test "report with invalid data, no reporter" do
-  #   report = Report.new(reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   assert !report.valid?
-  # end
+  test "page with invalid data, no name" do
+    page = Page.new(subject: @subject, name: nil, permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    assert !page.valid?
+  end
 
-  # test "report with invalid data, no reportee" do
-  #   report = Report.new(reporter_id: @reporter.id, message: "testuser test report message", handled: false)
-  #   assert !report.valid?
-  # end
+  test "page with invalid data, no content" do
 
-  # test "report with invalid data, no message" do
+    page = Page.new(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: nil)
+    assert !page.valid?
+  end
 
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, handled: false)
-  #   assert !report.valid?
-  # end
+  test "page with invalid data, no position" do
+    page = Page.new(subject: @subject, name: "name", permalink: "permalink", position: nil, visible: true, content: "dsdsds")
+    assert !page.valid?
+  end
 
-  # test "report with invalid data, no handled value" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "message test")
-  #   assert report.valid?
-  # end
+  test "page with invalid data, no subject" do
+    page = Page.new(subject: nil, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    assert !page.valid?
+  end
 
-  # test "report with invalid data, no data" do
-  #   report = Report.new()
-  #   assert !report.valid?
-  # end
+  test "page with invalid data, short content (1 below accepted threshold)" do
+    page = Page.new(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsd")
+    assert !page.valid?
+  end
 
-  # test "report with invalid data, short message (1 below accepted threshold)" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "test user", handled: false)
-  #   assert !report.valid?
-  # end
+
+  test "page with invalid data, no data" do
+    page = Page.new()
+    assert !page.valid?
+  end
+
+  # uniquness rules tests
+
+  test "page with valid data, uniqueness different subject, rest following rules" do
+    page = Page.create(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    page2 = Page.new(subject: @subject2, name: "name", permalink: "dsds", position: 7, visible: true, content: "dsdsds")
+    assert page2.valid?
+  end
+
+  test "page with valid data, uniqueness different subject, same permalink" do
+    page = Page.create(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    page2 = Page.new(subject: @subject2, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    assert !page2.valid?
+  end
+
+  test "page with valid data, uniqueness same subject, same name" do
+    page = Page.create(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    page2 = Page.new(subject: @subject, name: "name", permalink: "w", position: 5, visible: true, content: "dsdsds")
+    assert !page2.valid?
+  end
+
+  test "page with valid data, uniqueness same subject, same position" do
+    page = Page.create(subject: @subject, name: "name", permalink: "permalink", position: 4, visible: true, content: "dsdsds")
+    page2 = Page.new(subject: @subject, name: "name", permalink: "w", position: 4, visible: true, content: "dsdsds")
+    assert !page2.valid?
+  end
 
 end

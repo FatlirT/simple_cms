@@ -2,58 +2,50 @@ require 'test_helper'
 
 class SubjectTest < ActiveSupport::TestCase
 
-  # setup do
-  #   @reporter = users(:two)
-  #   @reportee = users(:one)
+  test "subject with valid data" do
+    subject = Subject.new(name: "name", position: 4, visible: false)
+    assert subject.valid?
+  end
 
-  # end
+  test "subject with valid data, but with true visible value" do
+    subject = Subject.new( name: "name", position: 4, visible: true)
+    assert subject.valid?
+  end
 
-  # test "report with valid data" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   assert report.valid?
-  # end
+  test "subject with invalid data, no visible value" do
+    subject = Subject.new( name: "name", position: 4, visible: nil)
+    assert subject.valid? # defaults to true
+  end
 
-  # test "report with valid data, uniqueness" do
-  #   report = Report.create(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   report2 = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   assert !report2.valid?
-  # end
+  test "subject with invalid data, no name" do
+    subject = Subject.new( name: nil, position: 4, visible: true)
+    assert !subject.valid?
+  end
 
-  # test "report with valid data, but with true handled value" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "testuser test report message", handled: true)
 
-  #   assert report.valid?
-  # end
+  test "subject with invalid data, no position" do
+    subject = Subject.new( name: "name", position: nil, visible: true)
+    assert !subject.valid?
+  end
 
-  # test "report with invalid data, no reporter" do
-  #   report = Report.new(reportee_id: @reportee.id, message: "testuser test report message", handled: false)
-  #   assert !report.valid?
-  # end
+  test "subject with invalid data, no data" do
+    subject = Subject.new()
+    assert !subject.valid?
+  end
 
-  # test "report with invalid data, no reportee" do
-  #   report = Report.new(reporter_id: @reporter.id, message: "testuser test report message", handled: false)
-  #   assert !report.valid?
-  # end
+  # uniquness rules tests
 
-  # test "report with invalid data, no message" do
+  test "subject with valid data, uniqueness same name" do
+    subject = Subject.create( name: "name", position: 4, visible: true)
+    subject2 = Subject.new( name: "name", position: 5, visible: true)
+    assert !subject2.valid?
+  end
 
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, handled: false)
-  #   assert !report.valid?
-  # end
+  test "subject with valid data, same position" do
+    subject = Subject.create( name: "name", position: 4, visible: true)
+    subject2 = Subject.new( name: "name2", position: 4, visible: true)
+    assert !subject2.valid?
+  end
 
-  # test "report with invalid data, no handled value" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "message test")
-  #   assert report.valid?
-  # end
-
-  # test "report with invalid data, no data" do
-  #   report = Report.new()
-  #   assert !report.valid?
-  # end
-
-  # test "report with invalid data, short message (1 below accepted threshold)" do
-  #   report = Report.new(reporter_id: @reporter.id, reportee_id: @reportee.id, message: "test user", handled: false)
-  #   assert !report.valid?
-  # end
   
 end

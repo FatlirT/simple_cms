@@ -3,6 +3,6 @@ class Page < ApplicationRecord
     validates :name, presence: true, uniqueness: { scope: :subject, message: "Two pages from the same subject cannot have the same name." }
     validates :permalink, presence: true, uniqueness: true
     validates :position, presence: true, uniqueness: { scope: :subject, message: "There can only be one page per position in a subject." }
-    validates :content, presence: true
+    validates :content, presence: true, length: { minimum: 6, message: " - Content is too short, must be 6 characters or more." }
     
 end
