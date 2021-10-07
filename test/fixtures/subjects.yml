@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 corona:
-  name: Math
+  name: Corona
   position: 1
   visible: true
 

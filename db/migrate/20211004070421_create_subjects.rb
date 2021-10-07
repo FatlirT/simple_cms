@@ -4,7 +4,6 @@ class CreateSubjects < ActiveRecord::Migration[6.0]
       t.string :name
       t.integer :position
       t.boolean :visible
-
       t.timestamps
     end
   end
