@@ -12,11 +12,10 @@
       <th>Actions</th>
     </tr>
     <% if !@pages.empty? %>
-      <% puts @pages %>
       <% @pages.each do |page| %>
       <tr>
         <td><%= page.position %></td>
-        <td class="center"><%= puts page.subject.nil? ? 1 : 2 %></td>
+        <td class="center"><%= page.subject.name %></td>
         <td><%= page.name %></td>
         <td class="center"><%= page.visible ? 'Yes' : 'No' %></td>
         <td class="actions">
