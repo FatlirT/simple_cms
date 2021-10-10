@@ -3,6 +3,7 @@ Simple Content Management System (idea from Ruby on Rails 6 Essential Training b
 TODO:
 
 - input validation, JS?
-- user authentication
+- add sign-up functionality
+- finish user and session functionality
 - add GUI, SCSS?
 - add mailer
